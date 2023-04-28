@@ -230,32 +230,32 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	//to appear on the stack you will print.
 	public void postOrderStack() {
 	    Stack<BSTNode<T>> post = new Stack<BSTNode<T>>();
-			Stack<BSTNode<T>> postHelper = new Stack<BSTNode<T>>();
-			BSTNode<T> current = root;
-			postHelper.push(current); 
-			while (current.leftChild != null) {
-				current = current.leftChild; // current is 2
-	            post.push(current);
-				if (current.rightChild != null) { 
-					post.push(current.rightChild); // in:3, 2, 8, 7
-				}
+		Stack<BSTNode<T>> postHelper = new Stack<BSTNode<T>>();
+		BSTNode<T> current = root;
+		postHelper.push(current); 
+		while (current.leftChild != null) {
+			current = current.leftChild; // current is 7
+	        post.push(current);
+			if (current.rightChild != null) { 
+				post.push(current.rightChild); // in:8, 7
 			}
-			if (root.rightChild != null) {
-				current = root.rightChild; // 11
-	            postHelper.push(current); // un: 11, 9
-				if (current.leftChild != null && current.rightChild != null) {
-					postHelper.push(current.rightChild); // un: 15, 11, 9
-					postHelper.push(current.leftChild); // un: 10, 15, 11, 9
+		}
+		if (root.rightChild != null) {
+			current = root.rightChild; // 11
+	        postHelper.push(current); // un: 11, 9
+			if (current.leftChild != null && current.rightChild != null) {
+				postHelper.push(current.rightChild); // un: 15, 11, 9
+				postHelper.push(current.leftChild); // un: 10, 15, 11, 9
 					
-				}
 			}
+		}
 			// consolidate the stacks?
-			while (!post.isEmpty()) {
-				System.out.print(post.pop() + " ");
-			}
-			while (!postHelper.isEmpty()) {
-				System.out.print(postHelper.pop() + " ");
-			}
+		while (!post.isEmpty()) {
+			System.out.print(post.pop() + " ");
+		}
+		while (!postHelper.isEmpty()) {
+			System.out.print(postHelper.pop() + " ");
+		}
 
 	}
 	
