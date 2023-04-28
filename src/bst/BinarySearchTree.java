@@ -138,11 +138,20 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	//For a bst this will print the values in sorted order from smallest to largest
 	public void inOrder() {
 		inOrderRecurse(root); 
-		System.out.println("InOrder test commit");
+		//System.out.println("InOrder test commit");
+		
 	}
 	
 	public void inOrderRecurse(BSTNode<T> node) {
-		
+		BSTNode current = node;
+		if (current == null) {
+			return;
+		}
+		else {
+			inOrderRecurse(current.leftChild);
+			System.out.print(current + " ");
+			inOrderRecurse(current.rightChild);
+		}
 	}
 	//Traverse the tree in an inorder fashion but using a stack
 	public void inOrderStack() {
