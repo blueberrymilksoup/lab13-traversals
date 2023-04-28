@@ -187,17 +187,14 @@ public class BinarySearchTree<T extends Comparable<T>> {
 			current = root.rightChild;
 			if (current.leftChild != null && current.rightChild != null) {
 				un.push(current.rightChild);
-				
 				if (current.rightChild.rightChild != null || current.rightChild.leftChild != null) {
 					current = current.rightChild;
 				}
 				un.push(current);
-				
 				if (current.leftChild.rightChild != null || current.leftChild.leftChild != null) {
 					current = current.leftChild;
 				}
 				un.push(current.leftChild);
-				
 			}
 		}
 		// consolidate the stacks?
@@ -232,19 +229,33 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	//I suggest using two stacks. Think about the order you want the elements
 	//to appear on the stack you will print.
 	public void postOrderStack() {
-		Stack<BSTNode<T>> post = new Stack<>();
-		Stack<BSTNode<T>> postHelper = new Stack<>();
-		if(root!=null) {
-			postHelper.push(root);
-			while(!postHelper.isEmpty()) {
-				//how should post and postHelper be updated?
+	    Stack<BSTNode<T>> post = new Stack<BSTNode<T>>();
+			Stack<BSTNode<T>> postHelper = new Stack<BSTNode<T>>();
+			BSTNode<T> current = root;
+			postHelper.push(current); 
+			while (current.leftChild != null) {
+				current = current.leftChild; // current is 2
+	            post.push(current);
+				if (current.rightChild != null) { 
+					post.push(current.rightChild); // in:3, 2, 8, 7
+				}
 			}
-			
-			while(!post.isEmpty()) {
-				BSTNode<T> node = post.pop();
-				System.out.print(node + " ");
+			if (root.rightChild != null) {
+				current = root.rightChild; // 11
+	            postHelper.push(current); // un: 11, 9
+				if (current.leftChild != null && current.rightChild != null) {
+					postHelper.push(current.rightChild); // un: 15, 11, 9
+					postHelper.push(current.leftChild); // un: 10, 15, 11, 9
+					
+				}
 			}
-		}
+			// consolidate the stacks?
+			while (!post.isEmpty()) {
+				System.out.print(post.pop() + " ");
+			}
+			while (!postHelper.isEmpty()) {
+				System.out.print(postHelper.pop() + " ");
+			}
 
 	}
 	
@@ -271,8 +282,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		bst.insert(2);
 		bst.insert(8);
 		bst.insert(15);
-//		bst.insert(10);
-//		bst.insert(3);
+		bst.insert(10);
+		bst.insert(3);
 		System.out.println(bst);
 	
 		System.out.println("In Order Traversals");
